@@ -1,0 +1,131 @@
+Nauka 1:
+    -10 zestawow po 20 tetrimino
+    - 40 osobnikow, elitism = 2
+    - 200 generacji
+    -funkcja dopasowania:
+        def calculate_fitness(score, level, lines, locked):
+            if score > 0:
+                fitness = score / (level * 10 + lines)
+            else:
+                fitness = 0
+
+            max_y = 20 # wysokość najwyższego klocka
+            # sprawdzenie jak wysoka jest nasza powierzchnia:
+            for y in range(20): # skanowanie od góry do dołu
+                line = 0
+                for x in range(10):  # skanowanie od lewej do prawej
+                    if (x,y) in locked:
+                        if y < max_y: # sprawdzamy wysokość
+                            max_y = y
+
+                        if (x,y+1) not in locked and y+1 < 20: # sprawdzamy czy są dziury w ostatecznej strukturze (dziura to klocek pod, którym jest pusto)
+                            fitness -= 5
+
+                        line += 1 # zwiększamy długość klocków obok siebie
+                        fitness += 0.5 * line # dopasowanie jest zmieniane na podstawie długości klocków obok siebie
+                    else:
+                        line = 0 # jeśli trafiliśmy na pustkę to zerujemy długość klocków obok siebie
+
+            fitness -= 1.2 * (20 - max_y) # kara za wysokość stworzonej struktury
+
+            return fitness
+        dodatkowo traci po 100 punktów za każdą grę, która zakończyła się porażką (nie ustawił wszystkich tetrimino z zestawu)
+
+ Nauka 2:
+    -10 zestawow po 20 tetrimino
+    - 80 osobnikow, elitism = 4
+    - 200 generacji
+    -funkcja dopasowania:
+        def calculate_fitness(score, level, lines, locked):
+            if score > 0:
+                fitness = score / (level * 10 + lines)
+            else:
+                fitness = 0
+
+            max_y = 20 # wysokość najwyższego klocka
+            # sprawdzenie jak wysoka jest nasza powierzchnia:
+            for y in range(20): # skanowanie od góry do dołu
+                line = 0
+                for x in range(10):  # skanowanie od lewej do prawej
+                    if (x,y) in locked:
+                        if y < max_y: # sprawdzamy wysokość
+                            max_y = y
+
+                        if (x,y+1) not in locked and y+1 < 20: # sprawdzamy czy są dziury w ostatecznej strukturze (dziura to klocek pod, którym jest pusto)
+                            fitness -= 5
+
+                        line += 1 # zwiększamy długość klocków obok siebie
+                        fitness += 0.5 * line # dopasowanie jest zmieniane na podstawie długości klocków obok siebie
+                    else:
+                        line = 0 # jeśli trafiliśmy na pustkę to zerujemy długość klocków obok siebie
+
+            fitness -= 1.2 * (20 - max_y) # kara za wysokość stworzonej struktury
+
+            return fitness
+        dodatkowo traci po 100 punktów za każdą grę, która zakończyła się porażką (nie ustawił wszystkich tetrimino z zestawu)
+
+ Nauka 3:
+    -20 zestawow po 20 tetrimino
+    - 40 osobnikow, elitism = 2
+    - 200 generacji
+    -funkcja dopasowania:
+        def calculate_fitness(score, level, lines, locked):
+            if score > 0:
+                fitness = score / (level * 10 + lines)
+            else:
+                fitness = 0
+
+            max_y = 20 # wysokość najwyższego klocka
+            # sprawdzenie jak wysoka jest nasza powierzchnia:
+            for y in range(20): # skanowanie od góry do dołu
+                line = 0
+                for x in range(10):  # skanowanie od lewej do prawej
+                    if (x,y) in locked:
+                        if y < max_y: # sprawdzamy wysokość
+                            max_y = y
+
+                        if (x,y+1) not in locked and y+1 < 20: # sprawdzamy czy są dziury w ostatecznej strukturze (dziura to klocek pod, którym jest pusto)
+                            fitness -= 5
+
+                        line += 1 # zwiększamy długość klocków obok siebie
+                        fitness += 0.5 * line # dopasowanie jest zmieniane na podstawie długości klocków obok siebie
+                    else:
+                        line = 0 # jeśli trafiliśmy na pustkę to zerujemy długość klocków obok siebie
+
+            fitness -= 1.2 * (20 - max_y) # kara za wysokość stworzonej struktury
+
+            return fitness
+        dodatkowo traci po 100 punktów za każdą grę, która zakończyła się porażką (nie ustawił wszystkich tetrimino z zestawu)
+
+    Nauka 4:
+    - 10 zestawow po 20 tetrimino
+    - 80 osobnikow, elitism = 4
+    - 50 generacji
+    -funkcja dopasowania:
+        def calculate_fitness(score, level, lines, locked):
+        if score > 0:
+            fitness = score / (level * 10 + lines)
+        else:
+            fitness = 0
+
+        max_y = 20 # wysokość najwyższego klocka
+        # sprawdzenie jak wysoka jest nasza powierzchnia:
+        for y in range(20): # skanowanie od góry do dołu
+            line = 0
+            for x in range(10):  # skanowanie od lewej do prawej
+                if (x,y) in locked:
+                    if y < max_y: # sprawdzamy wysokość
+                        max_y = y
+
+                    if (x,y+1) not in locked and y+1 < 20: # sprawdzamy czy są dziury w ostatecznej strukturze (dziura to klocek pod, którym jest pusto)
+                        fitness -= 50
+
+                    line += 1 # zwiększamy długość klocków obok siebie
+                    fitness += 0.5 * line # dopasowanie jest zmieniane na podstawie długości klocków obok siebie
+                else:
+                    line = 0 # jeśli trafiliśmy na pustkę to zerujemy długość klocków obok siebie
+
+        fitness -= 1.2 * (20 - max_y) # kara za wysokość stworzonej struktury
+
+        return fitness
+         dodatkowo traci po 100 punktów za każdy niewykorzystany tetrimino

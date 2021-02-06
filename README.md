@@ -1,2 +1,2 @@
 # project_tetris
- creating AI (neutral network) with neat-python to play Tetris
+ Creating AI for Tetris using neat-python
