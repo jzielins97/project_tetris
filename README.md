@@ -2,7 +2,7 @@
  Creating AI for Tetris using neat-python
 
 ## Tetris
-Tetris game was written based on the: https://www.techwithtim.net/tutorials/game-development-with-python/tetris-pygame/tutorial-1/ \
+Tetris game was written based on the: https://www.techwithtim.net/tutorials/game-development-with-python/tetris-pygame/tutorial-1/ 
 
 to play Tetris yourself just run play_tetris.py
 
@@ -10,16 +10,16 @@ to play Tetris yourself just run play_tetris.py
 Entire process of teaching is based on neural evolution using neat algorithm. The neat-python module is used for the implementation of the algorithm. 5 different methods of teaching were used, each tested with at least 200 generations. The difference between teaching methods 1-4 are in the number of sample games per player, length of the games (number of pieces to place) or number of players in the generation. Teaching method 5 has differently calculated fitness function and the neural network has different number of inputs.
 
 ### Neural network:
-#### inputs:\
+#### inputs:
 teaching method 1-4: NN uses entire grid (20x10), the current piece (4x4) and the next piece (4x4). It gives 232 inputs
-teaching method 5: NN uses grif (20x10); however, it doesn't represent every cell, rather hightes (so it is 1 if there is a block on the position or above it), current piece (7 inputs, so piece with shape #3: 0010000), next piece (the same as current piece). It gives 214 inputs \
+teaching method 5: NN uses grif (20x10); however, it doesn't represent every cell, rather hightes (so it is 1 if there is a block on the position or above it), current piece (7 inputs, so piece with shape #3: 0010000), next piece (the same as current piece). It gives 214 inputs 
 
 #### outputs:
 each combination of the position of the piece (10) and its rotation (4). So 40 outputs
 
 ### Teaching
 Summary of each teaching method is in the buffer file (information about fitness function used, number of generations, number of players in each generation, etc). Each config file is in the configs directory. 
-To teach AI just run teach_ai.py with config of your choice and correct fitness function. \
+To teach AI just run teach_ai.py with config of your choice and correct fitness function. 
 NOTE: make sure that output and input methods in the teach_ai.py are correct with the config you are submitting (number of output and input nodes has to be the same in the config and the teach_ai.py)
 
 ## Results
