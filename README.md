@@ -19,7 +19,7 @@ teaching method 5: NN uses grif (20x10); however, it doesn't represent every cel
 each combination of the position of the piece (10) and its rotation (4). So 40 outputs
 
 ### Teaching
-Summary of each teaching method is in the buffer file (information about fitness function used, number of generations, number of players in each generation, etc). Each config file is in the configs directory. \\
+Summary of each teaching method is in the buffer file (information about fitness function used, number of generations, number of players in each generation, etc). Each config file is in the configs directory. \
 To teach AI just run teach_ai.py with config of your choice and correct fitness function. 
 
 NOTE: make sure that output and input methods in the teach_ai.py are correct with the config you are submitting (number of output and input nodes has to be the same in the config and the teach_ai.py)
