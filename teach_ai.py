@@ -1,5 +1,4 @@
 # https://www.askforgametask.com/tutorial/machine-learning/ai-plays-tetris-with-cnn/
-# https://www.techwithtim.net/tutorials/game-development-with-python/tetris-pygame/tutorial-1/
 # https://www.youtube.com/watch?v=wQWWzBHUJWM&ab_channel=TechWithTim
 
 import neat
