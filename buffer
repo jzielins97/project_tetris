@@ -129,3 +129,43 @@ Nauka 1:
 
         return fitness
          dodatkowo traci po 100 punktów za każdy niewykorzystany tetrimino
+         
+nauka 5:
+    - 20 zestawów po 20 tetrimin
+    - 60 osobników (elitism = 4)
+    - 1000 generacji
+    -funkcja dopasowania:
+            def calculate_fitness(score, level, lines, locked):
+                if score > 0:
+                    fitness = score / (level * 10 + lines)
+                else:
+                    fitness = 0
+
+
+                height = [0] * 10 # wysokości poszczególnych kolumn
+                max_y = 20 # wysokość najwyższego klocka
+                # sprawdzenie jak wysoka jest nasza powierzchnia:
+                for y in range(20): # skanowanie od góry do dołu
+                    line = 0
+                    for x in range(10):  # skanowanie od lewej do prawej
+                        if (x,y) in locked:
+                            if y < max_y: # sprawdzamy wysokość
+                                max_y = y
+
+                            if 20 - y > height[x]:
+                                height[x] = 20 - y
+                            if (x,y+1) not in locked and y+1 < 20: # sprawdzamy czy są dziury w ostatecznej strukturze (dziura to klocek pod, którym jest pusto)
+                                fitness -= 50
+
+                dh = 0
+                for i, h in enumerate(height):
+                    try:
+                        dh += abs(h - height[i+1])
+                    except:
+                        continue
+
+                fitness -= dh
+                fitness -= 5 * (20 - max_y) # kara za wysokość stworzonej struktury
+
+                return fitness
+                    dodatkowo traci po 100 punktów za każdy niewykorzystany tetrimino
