@@ -104,8 +104,8 @@ def evaluate_genome(genomes, config):  #
         fitness_avg = 0
         lost_count = 0
         for set_i in pieces_sets:
-            win = None #tr.pygame.display.set_mode((tr.s_width, tr.s_height))
-            #tr.pygame.display.set_caption('Tetris')
+            win =  tr.pygame.display.set_mode((tr.s_width, tr.s_height))
+            tr.pygame.display.set_caption('Tetris')
 
             """ ustawienia gry. """
             clock = tr.pygame.time.Clock()
@@ -213,11 +213,11 @@ def evaluate_genome(genomes, config):  #
                     lost_count += len(set_i) - next_index # za każdy niewykorzystany tetrimino
                     run = False
 
-            fitness_avg = calculate_fitness(score, level, lines, locked_positions)
+            fitness_avg += calculate_fitness(score, level, lines, locked_positions)
             tr.pygame.display.quit()
         fitness_avg -= lost_count * 100
         genome.fitness = fitness_avg / len(pieces_sets)
-        #print("lost",lost_count)
+        #print("finished:",genome_id,genome.fitness)
 
 
 # ustawienie pliku konfiguracyjnego
@@ -226,7 +226,7 @@ config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
                      'config-feedforward')
 
 try:
-    p = neat.checkpoint.Checkpointer.restore_checkpoint(".\\checkpoints\\nauka_5\\neat-checkpoint-699")
+    p = neat.checkpoint.Checkpointer.restore_checkpoint(".\\checkpoints\\nauka_5\\neat-checkpoint-1000")
 except IOError:
     # stworzenie populacji początkowej
     print("File does not exist")
@@ -245,7 +245,7 @@ p.add_reporter(neat.Checkpointer(generation_interval=5, filename_prefix=".\\chec
 
 
 # wykonanie ewolucji
-winner = p.run(evaluate_genome, 302)
+winner = p.run(evaluate_genome, 1)
 
 #zapisywanie statystyk:
 with open(".\\checkpoints\\nauka_5\\stats.pkl", "wb") as f:

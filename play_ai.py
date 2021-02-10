@@ -51,7 +51,7 @@ def main(win, net = None):  # *
     next_piece = tetris.get_shape()
     clock = tetris.pygame.time.Clock()
     fall_time = 0
-    fall_speed = 0.12 #0.27
+    fall_speed = 0.08 #0.27
     score = 0
     lines = 0
     level = 0
@@ -151,9 +151,9 @@ tetris.pygame.display.set_caption('Tetris')
 # ustawienie pliku konfiguracyjnego
 config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
                      neat.DefaultSpeciesSet, neat.DefaultStagnation,
-                     '.\\configs\\config-1')
+                     '.\\configs\\config-4')
 
-with open(".\\results\\winner_nauka_1.pkl", "rb") as f:
+with open(".\\results\\winner_nauka_4.pkl", "rb") as f:
     winner = pickle.load(f)
 
 net = neat.nn.FeedForwardNetwork.create(winner, config)
