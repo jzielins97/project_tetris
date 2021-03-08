@@ -11,7 +11,7 @@ config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
 population = neat.checkpoint.Checkpointer.restore_checkpoint(".\\checkpoints\\nauka_5\\neat-checkpoint-1000")
 """
 
-with open(".\\checkpoints\\nauka_5\\stats.pkl", "rb") as f:
+with open(".\\checkpoints\\stats.pkl", "rb") as f:
     stats = pickle.load(f)
 
 #stats = neat.statistics.StatisticsReporter()

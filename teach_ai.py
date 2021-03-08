@@ -40,16 +40,7 @@ def get_input(grid, current_piece, next_piece):
 def get_output(net, grid, current_piece, next_piece):
     _input = get_input(grid, current_piece, next_piece)
     _output = net.activate(_input)
-    """
-    # wersja dla 2 wejść, gdzie pierwsza wartość oznacza kolumnę (0.0-1.0 -> 0-9)
-    #                          druga wartość oznacza rotację (0.0-1.0 -> 0-3)
-    rotation = int(_output[1] * 4)
-    if rotation == 4:
-        rotation -= 1
-    position = int(_output[0] * 10)
 
-    return position, rotation
-    """
     # wersja dla 40 wyjść, gdzie każdy output oznacza inną kombinację kolumny i rotacji dla danego tetrimino
     best_index = _output.index(max(_output))
 
@@ -93,10 +84,10 @@ def calculate_fitness(score, level, lines, locked):
 
 
 def evaluate_genome(genomes, config):  #
-    # losowanie 10 zestawów tetrimino (po 20) do testowania osobników:
+    # losowanie zestawów tetrimino do testowania osobników:
     pieces_sets = []
     for i in range(20):
-        pieces_sets.append(numpy.random.randint(0, 6, 20))
+        pieces_sets.append(numpy.random.randint(0, 6, 4)) #number of pieces used N-2
 
     for genome_id, genome in genomes: # pętla po wszystkich osobnikach
         genome.fitness = 0
@@ -104,8 +95,8 @@ def evaluate_genome(genomes, config):  #
         fitness_avg = 0
         lost_count = 0
         for set_i in pieces_sets:
-            win =  tr.pygame.display.set_mode((tr.s_width, tr.s_height))
-            tr.pygame.display.set_caption('Tetris')
+            win = None # tr.pygame.display.set_mode((tr.s_width, tr.s_height))
+            #tr.pygame.display.set_caption('Tetris')
 
             """ ustawienia gry. """
             clock = tr.pygame.time.Clock()
@@ -226,14 +217,14 @@ config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
                      'config-feedforward')
 
 try:
-    p = neat.checkpoint.Checkpointer.restore_checkpoint(".\\checkpoints\\nauka_5\\neat-checkpoint-1000")
+    p = neat.checkpoint.Checkpointer.restore_checkpoint(".\\checkpoints\\neat-checkpoint-67")
 except IOError:
     # stworzenie populacji początkowej
     print("File does not exist")
     p = neat.Population(config)
 
 try:
-    with open(".\\checkpoints\\nauka_5\\stats.pkl", "rb") as f:
+    with open(".\\checkpoints\\stats.pkl", "rb") as f:
         stats = pickle.load(f)
 except:
     print("No presaved stats")
@@ -241,20 +232,20 @@ except:
 
 p.add_reporter(neat.StdOutReporter(False))
 p.add_reporter(stats)
-p.add_reporter(neat.Checkpointer(generation_interval=5, filename_prefix=".\\checkpoints\\nauka_5\\neat-checkpoint-")) # zapisywanie progresu populacji co 5 generacja
+p.add_reporter(neat.Checkpointer(generation_interval=10, filename_prefix=".\\checkpoints\\neat-checkpoint-")) # zapisywanie progresu populacji co 5 generacja
 
 
 # wykonanie ewolucji
-winner = p.run(evaluate_genome, 1)
+winner = p.run(evaluate_genome, 84)
 
 #zapisywanie statystyk:
-with open(".\\checkpoints\\nauka_5\\stats.pkl", "wb") as f:
+with open(".\\checkpoints\\stats.pkl", "wb") as f:
     pickle.dump(stats, f)
     f.close()
 
 
 # otrzymanie "najlepszego" osobnika
 winner_net = neat.nn.FeedForwardNetwork.create(winner, config)
-with open("winner.pkl", "wb") as f:
+with open(".\\results\\winner.pkl", "wb") as f:
     pickle.dump(winner, f)
     f.close()

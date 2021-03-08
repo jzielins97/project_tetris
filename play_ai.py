@@ -6,18 +6,30 @@ import neat
 
 def get_input(grid, current_piece, next_piece):
     _input = []
+    height = [20] * 10 # maksymalna wyokość kolumny
     for i in range(len(grid)):
         for j in range(len(grid[i])):
+            if i > height[j]:
+                _input.append(1)
+                continue
+
             if grid[i][j] == (0, 0, 0,):
                 _input.append(0)
             else:
                 _input.append(1)
+                height[j] = i
 
-    for val in current_piece.shape[0]:
-        _input.append(val)
+    for i in range(len(tetris.shapes)):
+        if i == tetris.shapes.index(current_piece.shape):
+            _input.append(1)
+        else:
+            _input.append(0)
 
-    for val in next_piece.shape[0]:
-        _input.append(val)
+    for i in range(len(tetris.shapes)):
+        if i == tetris.shapes.index(next_piece.shape):
+            _input.append(1)
+        else:
+            _input.append(0)
 
     return _input
 
@@ -51,7 +63,7 @@ def main(win, net = None):  # *
     next_piece = tetris.get_shape()
     clock = tetris.pygame.time.Clock()
     fall_time = 0
-    fall_speed = 0.08 #0.27
+    fall_speed = 0.12 #0.27
     score = 0
     lines = 0
     level = 0
@@ -151,9 +163,9 @@ tetris.pygame.display.set_caption('Tetris')
 # ustawienie pliku konfiguracyjnego
 config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
                      neat.DefaultSpeciesSet, neat.DefaultStagnation,
-                     '.\\configs\\config-4')
+                     '.\\configs\\config-5')
 
-with open(".\\results\\winner_nauka_4.pkl", "rb") as f:
+with open(".\\results\\winner_nauka_5.pkl", "rb") as f:
     winner = pickle.load(f)
 
 net = neat.nn.FeedForwardNetwork.create(winner, config)
