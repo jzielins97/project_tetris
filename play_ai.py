@@ -165,7 +165,7 @@ config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
                      neat.DefaultSpeciesSet, neat.DefaultStagnation,
                      '.\\configs\\config-5')
 
-with open(".\\results\\winner_nauka_5.pkl", "rb") as f:
+with open(".\\winner.pkl", "rb") as f:
     winner = pickle.load(f)
 
 net = neat.nn.FeedForwardNetwork.create(winner, config)

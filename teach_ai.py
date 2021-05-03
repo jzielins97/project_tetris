@@ -87,7 +87,7 @@ def evaluate_genome(genomes, config):  #
     # losowanie zestawów tetrimino do testowania osobników:
     pieces_sets = []
     for i in range(20):
-        pieces_sets.append(numpy.random.randint(0, 6, 4)) #number of pieces used N-2
+        pieces_sets.append(numpy.random.randint(0, 6, 7)) #number of pieces used N-2
 
     for genome_id, genome in genomes: # pętla po wszystkich osobnikach
         genome.fitness = 0
@@ -101,7 +101,7 @@ def evaluate_genome(genomes, config):  #
             """ ustawienia gry. """
             clock = tr.pygame.time.Clock()
             fall_time = 0
-            fall_speed = 0.02  # 0.02
+            fall_speed = 0.0  # 0.02
 
             """ Każdy osobnik musi mieć informację o tetrimino, które kontroluje i następnym tetrimino
                 Musi też mieć informacje o gridzie jaki teraz ma."""
@@ -217,7 +217,7 @@ config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
                      'config-feedforward')
 
 try:
-    p = neat.checkpoint.Checkpointer.restore_checkpoint(".\\checkpoints\\neat-checkpoint-67")
+    p = neat.checkpoint.Checkpointer.restore_checkpoint(".\\checkpoints\\neat-checkpoint-755")
 except IOError:
     # stworzenie populacji początkowej
     print("File does not exist")
@@ -236,7 +236,7 @@ p.add_reporter(neat.Checkpointer(generation_interval=10, filename_prefix=".\\che
 
 
 # wykonanie ewolucji
-winner = p.run(evaluate_genome, 84)
+winner = p.run(evaluate_genome, 251)
 
 #zapisywanie statystyk:
 with open(".\\checkpoints\\stats.pkl", "wb") as f:
